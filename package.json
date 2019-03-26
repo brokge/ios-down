@@ -3,13 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --mode development",
+    "serve-production": "vue-cli-service serve --mode production",
     "build": "vue-cli-service build",
+    "production": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "iview": "^3.3.3",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1",
+    "vue-slide-bar": "^1.1.9",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -19,6 +23,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "uglifyjs-webpack-plugin": "^2.1.2",
     "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {
@@ -44,5 +49,8 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "vuePlugins": {
+    "resolveFrom": ""
+  }
 }

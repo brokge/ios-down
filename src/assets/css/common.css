@@ -1,0 +1,28 @@
+.card-vaccine {
+    width: 80%;
+    height: 100%;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+}
+
+.card-title {
+    text-align: start;
+    font-weight: 500;
+    width: 100%;
+    display: inherit;
+    padding: 16px 0px;
+    margin-bottom: 16px;
+    font-size: 15px;
+    color: #39af78;
+    line-height: 1;
+    border-bottom: 1px solid #39af78;
+}
+
+a {
+    color: #2c3e50 !important;
+}
+
+a:hover {
+    color: #39af78 !important;
+    text-decoration: underline !important;
+}
