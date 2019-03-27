@@ -18,22 +18,22 @@
           </div>
         </template>
       </VueSlideBar>
-      <div>
-      </div>
+      <div></div>
     </div>
     <div class="vbm-vaccine-content">
-    <Vaccines v-bind:loading="isLoading"></Vaccines>
+      <Vaccines
+        v-bind:loading="isLoading"
+        v-bind:itemsData="vaccineItems"
+      ></Vaccines>
     </div>
   </div>
 </template>
 <script>
 import VueSlideBar from "vue-slide-bar";
 import Vaccines from "@/components/vaccines.vue";
-import { request } from "http";
-import { truncate } from "fs";
-
+import API from "@/api/VaccinesApi";
 export default {
-  name: "WithLabel",
+  name: "VaccineByMonth",
   components: {
     VueSlideBar,
     Vaccines
@@ -41,6 +41,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      vaccineItems: [],
       rangeValue: {},
       slider: {
         lineHeight: 4,
@@ -125,26 +126,38 @@ export default {
       }
     };
   },
+  created() {
+    var initVal = {
+      label: "出生",
+      value: "0"
+    };
+    this.requestApi(initVal);
+  },
   methods: {
     callbackRange(val) {
+      console.log("month", val.value);
       this.rangeValue = val;
       this.requestApi(val);
     },
     requestApi(val) {
       let self = this;
       this.isLoading = true;
-      setTimeout(function() {
-        self.isLoading = false;
-        console.log(self.isLoading);
-      }, 2000);
-      console.log(val.value);
+      API.searchVaccineByMonth(val.value)
+        .then(function(response) {
+          self.isLoading = false;
+          self.vaccineItems = response.data.items;
+          console.log("aa", response);
+        })
+        .catch(function() {
+          self.isLoading = false;
+        });
     }
   }
 };
 </script>
 <style>
-.vbm-vaccine-content{
-    min-height: 400px;
+.vbm-vaccine-content {
+  min-height: 400px;
 }
 .slider-tooltip {
   width: 20px;
@@ -158,15 +171,6 @@ export default {
   border-radius: 15px;
   background-color: #eeeeee !important;
   cursor: pointer;
-}
-.ivu-spin-dot {
-  position: relative;
-  display: inline-block;
-  border-radius: 50%;
-  background-color: #39af78;
-  width: 20px;
-  height: 20px;
-  animation: ani-spin-bounce 1s 0s ease-in-out infinite;
 }
 </style>
 

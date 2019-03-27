@@ -2,84 +2,16 @@
   <div class="card-vaccine">
     <span v-show="tabTitle" class="card-title">{{ tabTitle }}</span>
     <div v-show="!loading" class="vaccine-common">
-      <Row class="vaccine-common-row" :gutter="16">
-        <Col span="8">
+      <Empty v-show="!checkIsEmpty(itemsData)" />
+      <Row class="vaccine-common-row" :gutter="16" v-for="row in rowNumber">
+        <Col
+          span="8"
+          v-for="(item, index) in itemsData.slice((row - 1) * 3, row * 3)"
+          :key="index"
+        >
           <div class="vaccine-common-item">
             <span class="vaccine-common-item-title">
-              <a href="/vaccine/detail/1">卡介疫苗</a></span
-            >
-          </div>
-        </Col>
-        <Col span="8">
-          <div class="vaccine-common-item">
-            <span class="vaccine-common-item-title">
-              <a href="/vaccine/detail/2">脊灰疫苗(注射，灭活)</a>
-            </span>
-          </div>
-        </Col>
-        <Col span="8">
-          <div class="vaccine-common-item">
-            <span class="vaccine-common-item-title">
-              <a href="/vaccine/detail/3">流感嗜血杆菌疫苗(Hib 疫苗)</a>
-            </span>
-          </div>
-        </Col>
-      </Row>
-      <Row class="vaccine-common-row" :gutter="16">
-        <Col span="8">
-          <div class="vaccine-common-item">
-            <span class="vaccine-common-item-title">
-              <a href="/vaccine/detail/4">
-                卡介疫苗
-              </a>
-            </span>
-          </div>
-        </Col>
-        <Col span="8">
-          <div class="vaccine-common-item">
-            <span class="vaccine-common-item-title">
-              <a href="/vaccine/detail/6">
-                脊灰疫苗(注射，灭活)
-              </a>
-            </span>
-          </div>
-        </Col>
-        <Col span="8">
-          <div class="vaccine-common-item">
-            <span class="vaccine-common-item-title">
-              <a href="/vaccine/detail/7">
-                流感嗜血杆菌疫苗(Hib 疫苗)
-              </a>
-            </span>
-          </div>
-        </Col>
-      </Row>
-
-      <Row class="vaccine-common-row" :gutter="16">
-        <Col span="8">
-          <div class="vaccine-common-item">
-            <span class="vaccine-common-item-title">
-              <a href="/vaccine/detail/66">
-                卡介疫苗
-              </a>
-            </span>
-          </div>
-        </Col>
-        <Col span="8">
-          <div class="vaccine-common-item">
-            <span class="vaccine-common-item-title">
-              <a href="/vaccine/detail/77">
-                脊灰疫苗(注射，灭活)
-              </a>
-            </span>
-          </div>
-        </Col>
-        <Col span="8">
-          <div class="vaccine-common-item">
-            <span class="vaccine-common-item-title">
-              <a href="/vaccine/detail/88">
-                流感嗜血杆菌疫苗(Hib 疫苗)
-              </a>
+              <a :href="getHref(item)">{{ item.name }}</a>
             </span>
           </div>
         </Col>
@@ -89,10 +21,55 @@
   </div>
 </template>
 <script>
+import empty from "@/components/empty.vue";
 export default {
+  data() {
+    return {};
+  },
+  methods: {
+    getHref(item) {
+      return "/vaccine/detail/" + item.id;
+    },
+    checkIsUnderfined(object) {
+      if (object == undefined || object == {} || object == []) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    checkIsEmpty(object) {
+      if (
+        object == undefined ||
+        object == {} ||
+        object == [] ||
+        object.length == 0
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  },
+  computed: {
+    //计算属性会缓存计算的数据，如果不需要经常更新的数据，建议用计算属性。
+    rowNumber: function() {
+      if (this.checkIsUnderfined(this.itemsData)) {
+        var length = this.itemsData.length;
+        if (length <= 3) {
+          return 1;
+        } else {
+          return (length - (length % 3)) / 3 + 1;
+        }
+      }
+    }
+  },
+  components: {
+    Empty: empty
+  },
   props: {
     tabTitle: String,
-    loading: Boolean
+    loading: Boolean,
+    itemsData: Array
   }
 };
 </script>
@@ -120,6 +97,15 @@ export default {
   vertical-align: middle;
   color: cadetblue;
   font-weight: 500;
+}
+.ivu-spin-dot {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #39af78;
+  width: 20px;
+  height: 20px;
+  animation: ani-spin-bounce 1s 0s ease-in-out infinite;
 }
 </style>
 

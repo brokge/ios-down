@@ -1,33 +1,33 @@
 <template>
   <div>
     <div class="card-vaccine">
-      <div class="detail-container">
+      <div class="detail-container" v-if="checkIsUnderfined(vaccineDetail)">
         <span class="detail-title">
-          卡介疫苗{{vaccineId}}
+          {{ vaccineDetail.name }}{{ vaccineId }}
         </span>
         <hr />
         <div class="vaccine-detail-tab">
           <span class="vaccine-detail-tabtitle">常用名</span>
           <p class="vaccine-detail-content">
-            卡介苗
+            {{ vaccineDetail.aliasName }}
           </p>
         </div>
         <div class="vaccine-detail-tab">
           <span class="vaccine-detail-tabtitle">适用年龄</span>
           <p class="vaccine-detail-content">
-            12 个月
+            {{ vaccineDetail.month }}
           </p>
         </div>
         <div class="vaccine-detail-tab">
           <span class="vaccine-detail-tabtitle">是否必须</span>
           <p class="vaccine-detail-content">
-            必打/推荐
+            {{ vaccineDetail.recommendType }}
           </p>
         </div>
         <div class="vaccine-detail-tab">
           <span class="vaccine-detail-tabtitle">计量单位</span>
           <p class="vaccine-detail-content">
-            第1计/总4计
+            {{ vaccineDetail.injectionNumber }}
           </p>
         </div>
 
@@ -40,14 +40,13 @@
         <div class="vaccine-detail-tab">
           <span class="vaccine-detail-tabtitle">相关信息</span>
           <p class="vaccine-detail-content">
-            第1计/总4计
+            {{ vaccineDetail.description }}
           </p>
         </div>
         <div class="vaccine-detail-tab">
           <span class="vaccine-detail-tabtitle">适用说明</span>
           <p class="vaccine-detail-content">
-            山东省疫苗异常问题补充问题查询山东a疫苗异常a题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询,山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询
-            ,山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询
+            {{ vaccineDetail.effect }}
           </p>
         </div>
       </div>
@@ -57,12 +56,44 @@
 </template>
 <script>
 import news from "@/components/news.vue";
+import API from "@/api/VaccinesApi";
 export default {
+  data() {
+    return {
+      vaccineDetail: {},
+      vaccineAbout: []
+    };
+  },
+  methods: {
+    fetchData() {
+      var vm = this;
+      var paramJson = {};
+      API.getVaccineDetail(paramJson)
+        .then(function(response) {
+          console.log("数据不为空", response);
+          vm.vaccineDetail = response.data.detail;
+          vm.vaccineAbout = response.data.about;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    checkIsUnderfined(object) {
+      if (object == undefined || object == {} || object == []) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  },
+  created() {
+    this.fetchData();
+  },
   components: {
     News: news
   },
-  props:{
-    vaccineId:Number
+  props: {
+    vaccineId: String
   }
 };
 </script>

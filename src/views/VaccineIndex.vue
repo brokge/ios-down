@@ -12,16 +12,25 @@
       </AutoComplete>
       <button class="btn" type="button">搜索</button>
     </div>
-    <Vaccines tabTitle="常搜索的疫苗"></Vaccines>
-    <News></News>
+    <Vaccines
+      tabTitle="常搜索的疫苗"
+      v-bind:loading="isVaccineLoading"
+      v-bind:itemsData="commonVaccines"
+    >
+    </Vaccines>
+    <News v-bind:newsData="lastNews"></News>
   </div>
 </template>
 <script>
 import news from "@/components/news.vue";
 import vaccines from "@/components/vaccines.vue";
+import API from "@/api/VaccinesApi";
 export default {
   data() {
     return {
+      isVaccineLoading: false,
+      lastNews: [],
+      commonVaccines: [],
       value4: "",
       data4: [
         {
@@ -62,7 +71,39 @@ export default {
       ]
     };
   },
-  methods: {},
+  created() {},
+  mounted() {
+    this.getLastNews();
+    this.getCommonVaccine();
+  },
+  methods: {
+    getLastNews() {
+      var self = this;
+      API.searchRecommandNews()
+        .then(function(response) {
+          console.log("bb", response);
+          self.lastNews = response.data.items;
+        })
+        .catch(function(error) {
+          console.log("bb", error); 
+        });
+    },
+    getCommonVaccine() {
+      var self = this;
+      self.isVaccineLoading = true;
+      API.searchCommonVaccine()
+        .then(function(response) {
+          console.log("aa", response);
+          self.commonVaccines = response.data.items;
+          self.isVaccineLoading = false;
+        })
+        .catch(function(error) {
+          console.log("aa",erroe);
+          self.commonVaccines = [];
+          self.isVaccineLoading = false;
+        });
+    }
+  },
   components: {
     News: news,
     Vaccines: vaccines
@@ -132,7 +173,7 @@ export default {
   border: 1px solid #39af78;
   cursor: pointer;
 }
-.btn:hover{
+.btn:hover {
   padding: 8px 20px;
   background-color: #1b5238;
   color: white;
@@ -143,7 +184,7 @@ export default {
   border: 1px solid #1b5238;
   cursor: pointer;
 }
-.btn:active{
+.btn:active {
   padding: 8px 20px;
   background-color: #1b5238;
   color: white;

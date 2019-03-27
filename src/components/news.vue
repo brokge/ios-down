@@ -2,54 +2,20 @@
   <div class="card-vaccine">
     <span class="card-title">相关新闻</span>
     <div class="card-content">
+      <Empty v-show="!checkIsEmpty(newsData)" />
       <ul>
-        <li>
+        <li v-for="(item, index) in newsData" :key="index">
           <div class="news-content">
             <span class="news-title">
-              <a href="/news/detail?new_id=99"
-                >山东省疫苗异常问题补充问题查询山东省疫</a
-              > </span
-            ><a class="news-from">凤凰网</a>
+              <a :href="getDetailUrl(item)">
+                {{ item.title }}
+              </a>
+            </span>
+            <a class="news-from" v-bind:href="item.from.url">
+              {{ item.from.name }}
+            </a>
             <p class="news-desc">
-              山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询,山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询
-              ,山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询
-            </p>
-          </div>
-          <hr />
-        </li>
-        <li>
-          <div class="news-content">
-            <span class="news-title"
-              >山东省疫苗异常问题补充问题查询山东省疫山东省疫苗异常问题补充问题查询山东省疫
-              山东省疫苗异常问题补充问题查询山东省疫 </span
-            ><a class="news-from">凤凰网</a>
-            <p class="news-desc">
-              山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询,山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询
-              ,山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询
-            </p>
-          </div>
-          <hr />
-        </li>
-        <li>
-          <div class="news-content">
-            <span class="news-title">
-              山东省疫苗异常问题补充问题查询山东省疫 </span
-            ><a class="news-from">凤凰网</a>
-            <p class="news-desc">
-              山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询,山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询
-              ,山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询
-            </p>
-          </div>
-          <hr />
-        </li>
-        <li>
-          <div class="news-content">
-            <span class="news-title">
-              山东省疫苗异常问题补充问题查询山东省疫 </span
-            ><a class="news-from">凤凰网</a>
-            <p class="news-desc">
-              山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询,山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询
-              ,山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询山东省疫苗异常问题补充问题查询
+              {{ item.summary }}
             </p>
           </div>
           <hr />
@@ -59,10 +25,41 @@
   </div>
 </template>
 <script>
-export default {};
+import empty from "@/components/empty.vue";
+export default {
+  components: {
+    Empty: empty
+  },
+  methods: {
+    getDetailUrl(item) {
+      return "/news/detail?new_id=" + item.id;
+    },
+    checkIsUnderfined(object) {
+      if (object == undefined || object == {} || object == []) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    checkIsEmpty(object) {
+      if (
+        object == undefined ||
+        object == {} ||
+        object == [] ||
+        object.length == 0
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  },
+  props: {
+    newsData: Array
+  }
+};
 </script>
 <style>
-
 .card-content ul li {
   text-align: start;
   padding: 0 0px;
