@@ -1,5 +1,6 @@
 # vaccine-vue
-
+## gitEmoj
+[git 提交添加 emoj ](https://www.webfx.com/tools/emoji-cheat-sheet/)
 ## Project setup
 ```
 npm install
