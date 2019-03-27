@@ -1,6 +1,12 @@
 # vaccine-vue
-## gitEmoj
-[git 提交添加 emoj ](https://www.webfx.com/tools/emoji-cheat-sheet/)
+## GitEmoj
+[Git 提交添加 Emoj ](https://www.webfx.com/tools/emoji-cheat-sheet/)
+## cnpm 安装
+
+```
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+```
+
 ## Project setup
 ```
 npm install
