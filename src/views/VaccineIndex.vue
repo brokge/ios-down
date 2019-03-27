@@ -122,9 +122,6 @@ export default {
   margin: 0px auto 0px auto;
 }
 
-.card-content {
-}
-
 .demo-auto-complete-item {
   padding: 4px 0;
   border-bottom: 1px solid #f6f6f6;
