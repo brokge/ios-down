@@ -11,7 +11,7 @@
         >
           <div class="vaccine-common-item">
             <span class="vaccine-common-item-title">
-              <a :href="getHref(item)">{{ item.name }}</a>
+              <a :href="getHref(item)" v-html="item.name"></a>
             </span>
           </div>
         </Col>
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     getHref(item) {
-      return "/vaccine/detail/" + item.id;
+      return "/vaccine/detail/" + item.vaccineId;
     },
     checkIsUnderfined(object) {
       if (object == undefined || object == {} || object == []) {

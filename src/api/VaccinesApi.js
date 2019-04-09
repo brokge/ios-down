@@ -7,7 +7,7 @@ const API = {
         param.requestName = "getVaccineDetail";
         return axios({
             method: 'GET',
-            url: 'vaccine/v1/detail/id',
+            url: 'vaccine/v1/detail/'+param.id,
             params: param
         })
     },
@@ -55,6 +55,16 @@ const API = {
             method: 'GET',
             url: "vaccine/v1/news",
             params: param
+        })
+    },
+    searchSolr(keyword) {
+        var paramJson={};
+        paramJson.requestName="searchSolrKeyword";
+        paramJson.key_word=keyword;
+        return axios({
+            method: 'GET',
+            url: "vaccine/v1/solr",
+            params: paramJson
         })
     }
 }

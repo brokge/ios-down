@@ -3,14 +3,14 @@
     <div class="search-content">
       <AutoComplete
         class="search-input"
-        v-model="value4"
+        v-model="searchInputValue"
         icon="ios-search"
         placeholder="输入疾病/疫苗名称"
         size="large"
         clearable
       >
       </AutoComplete>
-      <button class="btn" type="button">搜索</button>
+      <button class="btn" type="button" @click="onSearch">搜索</button>
     </div>
     <Vaccines
       tabTitle="常搜索的疫苗"
@@ -31,7 +31,7 @@ export default {
       isVaccineLoading: false,
       lastNews: [],
       commonVaccines: [],
-      value4: "",
+      searchInputValue: "",
       data4: [
         {
           title: "话题",
@@ -77,6 +77,21 @@ export default {
     this.getCommonVaccine();
   },
   methods: {
+    onSearch() {
+      var self = this;
+      self.isVaccineLoading = true;
+      API.searchSolr(this.searchInputValue)
+        .then(function(response) {
+          console.log("vaccine", response);
+          self.commonVaccines = response.data.items;
+          self.isVaccineLoading = false;
+        })
+        .catch(function(error) {
+          console.log("aa", error);
+          self.commonVaccines = [];
+          self.isVaccineLoading = false;
+        });
+    },
     getLastNews() {
       var self = this;
       API.searchRecommandNews()
@@ -85,7 +100,7 @@ export default {
           self.lastNews = response.data.items;
         })
         .catch(function(error) {
-          console.log("bb", error); 
+          console.log("bb", error);
         });
     },
     getCommonVaccine() {
@@ -98,7 +113,7 @@ export default {
           self.isVaccineLoading = false;
         })
         .catch(function(error) {
-          console.log("aa",erroe);
+          console.log("aa", error);
           self.commonVaccines = [];
           self.isVaccineLoading = false;
         });

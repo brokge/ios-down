@@ -15,13 +15,19 @@
         <div class="vaccine-detail-tab">
           <span class="vaccine-detail-tabtitle">适用年龄</span>
           <p class="vaccine-detail-content">
-            {{ vaccineDetail.month }}
+            {{ vaccineDetail.months }}
           </p>
         </div>
         <div class="vaccine-detail-tab">
           <span class="vaccine-detail-tabtitle">是否必须</span>
-          <p class="vaccine-detail-content">
+          <p class="vaccine-detail-content" v-text="getRecommentType(vaccineDetail.recommendType)">
             {{ vaccineDetail.recommendType }}
+          </p>
+        </div>
+        <div class="vaccine-detail-tab">
+          <span class="vaccine-detail-tabtitle">自费/免费</span>
+          <p class="vaccine-detail-content">
+            {{ vaccineDetail.feeType }}
           </p>
         </div>
         <div class="vaccine-detail-tab">
@@ -37,16 +43,18 @@
             第1计/总4计
           </p>
         </div>
-        <div class="vaccine-detail-tab">
-          <span class="vaccine-detail-tabtitle">相关信息</span>
-          <p class="vaccine-detail-content">
-            {{ vaccineDetail.description }}
-          </p>
-        </div>
+        
         <div class="vaccine-detail-tab">
           <span class="vaccine-detail-tabtitle">适用说明</span>
           <p class="vaccine-detail-content">
             {{ vaccineDetail.effect }}
+          </p>
+        </div>
+
+        <div class="vaccine-detail-tab">
+          <span class="vaccine-detail-tabtitle">相关信息</span>
+          <p class="vaccine-detail-content">
+            {{ vaccineDetail.description }}
           </p>
         </div>
       </div>
@@ -68,15 +76,25 @@ export default {
     fetchData() {
       var vm = this;
       var paramJson = {};
+      paramJson.id=this.vaccineId;
       API.getVaccineDetail(paramJson)
         .then(function(response) {
           console.log("数据不为空", response);
-          vm.vaccineDetail = response.data.detail;
+          vm.vaccineDetail = response.data;
           vm.vaccineAbout = response.data.about;
         })
         .catch(function(error) {
           console.log(error);
         });
+    },
+    getRecommentType(recommendType){
+      if(recommendType==1){
+        return "必须";
+      }else if(recommendType==2){
+        return "推荐";
+      }else {
+        return "可选";
+      }
     },
     checkIsUnderfined(object) {
       if (object == undefined || object == {} || object == []) {

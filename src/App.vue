@@ -78,28 +78,28 @@ export default {
   font-size: 18px;
   margin-right: 5%;
   text-decoration: none;
-  font-weight: 800;
+  font-weight: 600;
   color: #737373 !important;
 }
 #nav a:hover {
   font-size: 18px;
   margin-right: 5%;
   text-decoration: none !important;
-  font-weight: 700;
+  font-weight: 600;
   color: #39af78 !important;
 }
 #nav a:active {
   font-size: 18px;
   margin-right: 5%;
   text-decoration: none !important;
-  font-weight: 700;
+  font-weight: 600;
   color: #39af78 !important;
 }
 #nav a.router-link-active {
   font-size: 18px;
   margin-right: 5%;
   text-decoration: none !important;
-  font-weight: 700;
+  font-weight: 600;
   color: #39af78 !important;
 }
 

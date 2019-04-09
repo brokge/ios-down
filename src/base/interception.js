@@ -59,10 +59,11 @@ axios
     .response
     .use(res => {
         let data = res.data
-        if (data.code === 200) {
+        if (data.code === 1) {
             return data
         } else {
             handleError(res)
+            console.log(res)
             return Promise.reject(res)
         }
     })
