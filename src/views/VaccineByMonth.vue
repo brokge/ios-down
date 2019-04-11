@@ -46,7 +46,7 @@ export default {
       slider: {
         lineHeight: 4,
         value: 0,
-        data: [0, 1, 2, 3, 4, 5, 6, 8, 9, 12, 13, 14, 18, 24, 26, 36, 48, 72],
+        data: [0, 1, 2, 3, 4, 5, 6, 8, 9, 12, 14, 18, 24, 26, 36, 48, 72],
         range: [
           {
             label: "出生",
@@ -89,10 +89,6 @@ export default {
           {
             label: "1 岁",
             value: "12"
-          },
-          {
-            label: "13 月",
-            value: "13"
           },
           {
             label: "14 月",

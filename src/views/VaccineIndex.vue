@@ -28,6 +28,7 @@ import API from "@/api/VaccinesApi";
 export default {
   data() {
     return {
+      TAG: "VaccineIndex",
       isVaccineLoading: false,
       lastNews: [],
       commonVaccines: [],
@@ -71,15 +72,34 @@ export default {
       ]
     };
   },
-  created() {},
+  created() {
+    //在页面加载时读取localStorage里的状态信息
+    localStorage.getItem("userCache") && this.$store.replaceState(Object.assign(this.$store.state,JSON.parse(localStorage.getItem("userCache"))));
+    //在页面刷新时将vuex里的信息保存到localStorage里
+    window.addEventListener("beforeunload",()=>{
+        localStorage.setItem("userCache",JSON.stringify(this.$store.state))
+    })
+  },
   mounted() {
     this.getLastNews();
     this.getCommonVaccine();
+    this.searchInputValue = this.cacheSearchInputValue;
+    console.log(this.TAG, this.searchInputValue);
+    if (this.checkIsEmpty(this.searchInputValue)) {
+      this.onSearch();
+    }
+  },
+  computed: {
+    cacheSearchInputValue() {
+      return this.$store.state.search_keyword;
+    }
   },
   methods: {
     onSearch() {
       var self = this;
       self.isVaccineLoading = true;
+      this.storeSearchKeyword();
+      console.log("keyword", this.$store.getters.defaultSearchKeyWord);
       API.searchSolr(this.searchInputValue)
         .then(function(response) {
           console.log("vaccine", response);
@@ -91,6 +111,9 @@ export default {
           self.commonVaccines = [];
           self.isVaccineLoading = false;
         });
+    },
+    storeSearchKeyword() {
+      this.$store.dispatch("actionSearchKeyWord", this.searchInputValue);
     },
     getLastNews() {
       var self = this;
@@ -117,6 +140,18 @@ export default {
           self.commonVaccines = [];
           self.isVaccineLoading = false;
         });
+    },
+    checkIsEmpty(object) {
+      if (
+        object == undefined ||
+        object == {} ||
+        object == [] ||
+        object.length == 0
+      ) {
+        return false;
+      } else {
+        return true;
+      }
     }
   },
   components: {

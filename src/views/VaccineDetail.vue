@@ -106,6 +106,7 @@ export default {
   },
   created() {
     this.fetchData();
+    console.log("keyword", this.$store.getters.defaultSearchKeyWord);
   },
   components: {
     News: news
