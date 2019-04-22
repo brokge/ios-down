@@ -7,12 +7,12 @@
         <li v-for="(item, index) in newsData" :key="index">
           <div class="news-content">
             <span class="news-title">
-              <a :href="getDetailUrl(item)">
-                {{ item.title }}
+              <a :href="getDetailUrl(item)" v-html="item.title">
+               
               </a>
             </span>
-            <a class="news-from" v-bind:href="item.from.url">
-              {{ item.from.name }}
+            <a class="news-from" v-bind:href="item.fromUrl" target="_blank">
+              {{ item.fromSource}}
             </a>
             <p class="news-desc">
               {{ item.summary }}

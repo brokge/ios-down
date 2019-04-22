@@ -20,7 +20,10 @@
         </div>
         <div class="vaccine-detail-tab">
           <span class="vaccine-detail-tabtitle">是否必须</span>
-          <p class="vaccine-detail-content" v-text="getRecommentType(vaccineDetail.recommendType)">
+          <p
+            class="vaccine-detail-content"
+            v-text="getRecommentType(vaccineDetail.recommendType)"
+          >
             {{ vaccineDetail.recommendType }}
           </p>
         </div>
@@ -43,7 +46,7 @@
             第1计/总4计
           </p>
         </div>
-        
+
         <div class="vaccine-detail-tab">
           <span class="vaccine-detail-tabtitle">适用说明</span>
           <p class="vaccine-detail-content">
@@ -59,7 +62,7 @@
         </div>
       </div>
     </div>
-    <News></News>
+    <News v-bind:newsData="newsAbout"></News>
   </div>
 </template>
 <script>
@@ -69,30 +72,43 @@ export default {
   data() {
     return {
       vaccineDetail: {},
-      vaccineAbout: []
+      vaccineAbout: [],
+      newsAbout: []
     };
   },
   methods: {
     fetchData() {
       var vm = this;
       var paramJson = {};
-      paramJson.id=this.vaccineId;
+      paramJson.id = this.vaccineId;
       API.getVaccineDetail(paramJson)
         .then(function(response) {
           console.log("数据不为空", response);
           vm.vaccineDetail = response.data;
           vm.vaccineAbout = response.data.about;
+          console.log(vm.vaccineDetail.name);
+          vm.getNewsAbout(vm.vaccineDetail.name);
         })
         .catch(function(error) {
           console.log(error);
         });
     },
-    getRecommentType(recommendType){
-      if(recommendType==1){
+    getNewsAbout(keyWord) {
+       var vm = this;
+      API.searchNewsKeyWord(keyWord)
+      .then(function(response){
+        vm.newsAbout = response.data.items;
+      })
+      .catch(function(error){
+        console.log(error);
+      });
+    },
+    getRecommentType(recommendType) {
+      if (recommendType == 1) {
         return "必须";
-      }else if(recommendType==2){
+      } else if (recommendType == 2) {
         return "推荐";
-      }else {
+      } else {
         return "可选";
       }
     },

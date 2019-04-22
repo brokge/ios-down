@@ -42,18 +42,25 @@ const API = {
     searchRecommandNews() {
         var paramJson = {};
         paramJson.requestName = "searchRecommandNews";
-        return this.searchNews(paramJson);
+        return this.recommandNews(paramJson);
     },
     searchNewsKeyWord(keyword) {
         var paramJson = {};
         paramJson.requestName="searchNewsKeyWord";
-        paramJson.keyword = keyword;
+        paramJson.key_word = keyword;
         return this.searchNews(paramJson);
+    },
+    recommandNews(param) {
+        return axios({
+            method: 'GET',
+            url: "news/v1/suggest",
+            params: param
+        })
     },
     searchNews(param) {
         return axios({
             method: 'GET',
-            url: "vaccine/v1/news",
+            url: "news/v1/search",
             params: param
         })
     },
