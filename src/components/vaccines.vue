@@ -13,6 +13,7 @@
             <span class="vaccine-common-item-title">
               <a :href="getHref(item)" v-html="item.name"></a>
             </span>
+            <span class="vaccine-common-item-sub-title" v-show="showSubtitle" v-html="item.injectionNumber"></span>
           </div>
         </Col>
       </Row>
@@ -69,7 +70,8 @@ export default {
   props: {
     tabTitle: String,
     loading: Boolean,
-    itemsData: Array
+    itemsData: Array,
+    showSubtitle:Boolean
   }
 };
 </script>
@@ -97,6 +99,16 @@ export default {
   vertical-align: middle;
   color: cadetblue;
   font-weight: 500;
+  float: left;
+  width: 100%;
+}
+.vaccine-common-item-sub-title {
+  display: table-cell;
+  vertical-align: middle;
+  color: #999999;
+  font-size: 12px;
+  float: left;
+  width: 100%;
 }
 .ivu-spin-dot {
   position: relative;

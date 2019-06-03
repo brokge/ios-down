@@ -3,7 +3,7 @@
     <div class="card-vaccine">
       <div class="detail-container" v-if="checkIsUnderfined(vaccineDetail)">
         <span class="detail-title">
-          {{ vaccineDetail.name }}{{ vaccineId }}
+          {{ vaccineDetail.name }}
         </span>
         <hr />
         <div class="vaccine-detail-tab">

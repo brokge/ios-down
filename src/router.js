@@ -9,8 +9,8 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [{
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'vaccine-index',
+      component: () => import('./views/VaccineIndex.vue')
     },
     {
       path: '/vaccine/index',

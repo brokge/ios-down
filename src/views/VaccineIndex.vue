@@ -81,6 +81,7 @@ export default {
     })
   },
   mounted() {
+    this.onSearch();
     this.getLastNews();
     this.getCommonVaccine();
     this.searchInputValue = this.cacheSearchInputValue;

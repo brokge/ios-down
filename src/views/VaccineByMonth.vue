@@ -24,6 +24,7 @@
       <Vaccines
         v-bind:loading="isLoading"
         v-bind:itemsData="vaccineItems"
+        v-bind:showSubtitle=true
       ></Vaccines>
     </div>
   </div>
@@ -43,6 +44,7 @@ export default {
       isLoading: false,
       vaccineItems: [],
       rangeValue: {},
+      aa:[],
       slider: {
         lineHeight: 4,
         value: 0,
@@ -136,6 +138,7 @@ export default {
       this.requestApi(val);
     },
     requestApi(val) {
+      this.aa.
       let self = this;
       this.isLoading = true;
       API.searchVaccineByMonth(val.value)
