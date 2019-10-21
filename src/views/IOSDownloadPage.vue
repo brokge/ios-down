@@ -1,10 +1,11 @@
 <template>
   <div class="down_page">
+    <a class="attention" href="Cer/server.crt">如果出现无法连接，请点击此处下载证书</a>
     <ul>
       <li class="down_item" v-for="(item, index) in ipaList" :key="index">
         <img
           class="item_icon"
-          src="https://ipapk-server-shopkeeper-client.2dfire.net:443/icon/6656bf87-26d3-4846-8e27-7ecba6ec5455.png"
+          src="../assets/icon/app_icon.png"
         />
         <div class="item_center">
           <span class="item_name">{{ item.jobName }}</span>
@@ -74,6 +75,16 @@ export default {
   display: inline-block;
   width: 100%;
 }
+
+.attention {
+  padding: 10px;
+  float: left;
+  font-size: 20px;
+  color: blue;
+  color: blue !important;
+  text-decoration: underline;
+}
+
 .down_item {
   padding: 10px;
   width: 100%;
