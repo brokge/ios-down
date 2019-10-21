@@ -1,29 +1,6 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>|
-      <router-link to="/vaccine">vaccine</router-link>
-    </div> -->
-    <div id="header">
-      <div class="header-container">
-        <img id="logo" src="./assets/yimiao.png" width="70px" height="74px" />
-        <div id="nav">
-          <router-link to="/vaccine/index">首页</router-link>
-          <router-link :to="{name:'vaccine-month'}">按月查询</router-link>
-          <router-link to="/about">关于</router-link>
-        </div>
-      </div>
-      <hr />
-    </div>
     <router-view />
-    <div id="footer">
-      <hr />
-      <div class="copyright">
-        © 2019, DXDOCTOR Tech. 大象（杭州）有限公司
-        <span>浙 ICP 备 6666666 号 -1</span>
-      </div>
-    </div>
   </div>
 </template>
 <script>

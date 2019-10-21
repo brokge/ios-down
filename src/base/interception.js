@@ -15,6 +15,7 @@ axios
     .request
     .use(config => {
         let requestName
+        console.log(config.method)
         config.url = API_BASE_URL + config.url
         config.params = Object.assign({}, config.params)
         config.headers = {
