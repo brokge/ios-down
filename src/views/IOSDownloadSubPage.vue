@@ -3,13 +3,12 @@
     <div>
       <span class="go_home" @click="goHome()">《 返回主页</span>
     </div>
-    <a class="attention" href="Cer/server.crt">如果出现无法连接，请点击此处下载证书</a>
     <ul>
       <li class="down_item" v-for="(item, index) in ipaList" :key="index">
         <img class="item_icon" src="../assets/icon/app_icon.png" />
         <div class="item_center">
           <span class="item_name">{{ item.jobName }}</span>
-          <span class="item_version">{{ item.bundleVersion }}</span>
+          <span class="item_version">{{ item.bundleVersion }}({{item.buildNumber}})</span>
           <span class="item_time">更新：{{ formartDate(item.createTime) }}</span>
         </div>
         <a class="item_click" :href="item.downloadPath">下载</a>
@@ -73,7 +72,14 @@ export default {
       this.$router.go(-1);
     },
     formartDate(param) {
-      let date = new Date(+param);
+      if (param == null) {
+        return "";
+      }
+      if(param.indexOf('.')){
+        param = param.substring(0, 10);
+      }
+    
+      let date = new Date(+param*1000);
       let Y = date.getFullYear() + "-";
 
       let M =
@@ -110,7 +116,7 @@ export default {
 
 .go_home {
   color: #7a0002;
-  font-size: 16px;
+  font-size: 18px;
   float: left;
   margin-left: 8px;
   font-weight: bold;

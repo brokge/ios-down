@@ -11,7 +11,7 @@
         <img class="item_icon" src="../assets/icon/app_icon.png" />
         <div class="item_center">
           <span class="item_name">{{ item.jobName }}</span>
-          <span class="item_version">{{ item.bundleVersion }}</span>
+          <span class="item_version">{{ item.bundleVersion }}({{item.buildNumber}})</span>
           <span class="item_time">更新：{{ formartDate(item.createTime) }}</span>
         </div>
         <a class="item_click" :href="item.downloadPath">下载</a>
@@ -72,7 +72,14 @@ export default {
       this.$router.push({ name: "iosDownloadSub", params: { jobName: job } });
     },
     formartDate(param) {
-      let date = new Date(+param);
+      if (param == null) {
+        return "";
+      }
+      if(param.indexOf('.')){
+        param = param.substring(0, 10);
+      }
+    
+      let date = new Date(+param*1000);
       let Y = date.getFullYear() + "-";
 
       let M =
@@ -89,7 +96,8 @@ export default {
         date.getMinutes() < 10
           ? "0" + date.getMinutes() + ":"
           : date.getMinutes() + ":";
-      let s = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+      let s =
+        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
 
       return Y + M + D + h + m + s;
     }
