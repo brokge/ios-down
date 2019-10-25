@@ -9,7 +9,7 @@
         />
         <div class="item_center">
           <span class="item_name">{{ item.jobName }}</span>
-          <span class="item_version">{{ item.bundleVersion }}</span>
+          <span class="item_version">{{ item.buildNumber }}</span>
           <span class="item_time">更新：{{ item.createTime }}</span>
         </div>
         <a class="item_click" :href="item.downloadPath">下载</a>
