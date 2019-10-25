@@ -5,7 +5,7 @@
             "bundleIdentifier": "com.fanhaoyue.Hestia",
             "bundleName": "Hestia",
             "bundleVersion": "2.0.5",
-            "createTime": "1571392911",
+            "createTime": 1572005076641,
             "downloadPath": "itms-services://?action=download-manifest&url=https://10.1.65.248:443/plists/43971b6c-f18e-11e9-8155-9c35ebeee2b8",
             "jobName": "asdasdas",
             "plistPath": "https://10.1.65.248:443/plists/43971b6c-f18e-11e9-8155-9c35ebeee2b8"
@@ -15,7 +15,7 @@
             "bundleIdentifier": "com.fanhaoyue.Hestia",
             "bundleName": "Hestia",
             "bundleVersion": "2.0.5",
-            "createTime": "1571392220.54192",
+            "createTime": "1572005076641",
             "downloadPath": "itms-services://?action=download-manifest&url=https://10.1.65.248:443/plists/9ad8fc08-f18c-11e9-a467-9c35ebeee2b8",
             "jobName": "asdasdas",
             "plistPath": "https://10.1.65.248:443/plists/9ad8fc08-f18c-11e9-a467-9c35ebeee2b8"
@@ -25,7 +25,7 @@
             "bundleIdentifier": "com.fanhaoyue.Hestia",
             "bundleName": "Hestia",
             "bundleVersion": "2.0.5",
-            "createTime": null,
+            "createTime": 1572005076641,
             "downloadPath": "itms-services://?action=download-manifest&url=https://10.1.65.248:443/plists/c0e71026-f180-11e9-a6af-9c35ebeee2b8",
             "jobName": "asdasdas",
             "plistPath": "https://10.1.65.248:443/plists/c0e71026-f180-11e9-a6af-9c35ebeee2b8"

@@ -1,13 +1,11 @@
 <template>
   <div class="down_page">
+    <div>
+      <span class="go_home" @click="goHome()">《 返回主页</span>
+    </div>
     <a class="attention" href="Cer/server.crt">如果出现无法连接，请点击此处下载证书</a>
     <ul>
-      <li
-        class="down_item"
-        v-for="(item, index) in ipaList"
-        :key="index"
-        @click="gotoNext(item.jobName)"
-      >
+      <li class="down_item" v-for="(item, index) in ipaList" :key="index">
         <img class="item_icon" src="../assets/icon/app_icon.png" />
         <div class="item_center">
           <span class="item_name">{{ item.jobName }}</span>
@@ -35,12 +33,18 @@ export default {
   },
   created() {
     this.ipaList = appData.data;
-    this.requestApi(this.currentIndex);
+    console.log(this.$route.params.jobName);
+    let jobName = this.$route.params.jobName;
+    this.requestApi(this.currentIndex, jobName);
   },
   methods: {
-    requestApi(index) {
+    requestApi(index, jobName) {
       let self = this;
-      API.getIpaInfo()
+      let params = {
+        page: index,
+        jobName: jobName
+      };
+      API.getIpaInfoByJobName(params)
         .then(function(response) {
           self.isLoading = false;
           if (response.data == null) {
@@ -62,14 +66,11 @@ export default {
     },
     loadMore() {
       this.currentIndex += 1;
-      let params = {
-        page: this.currentIndex
-      };
       this.loadingMoreStr = "loading";
-      this.requestApi(params);
+      this.requestApi(this.currentIndex);
     },
-    gotoNext(job) {
-      this.$router.push({ name: "iosDownloadSub", params: { jobName: job } });
+    goHome() {
+      this.$router.go(-1);
     },
     formartDate(param) {
       let date = new Date(+param);
@@ -89,7 +90,8 @@ export default {
         date.getMinutes() < 10
           ? "0" + date.getMinutes() + ":"
           : date.getMinutes() + ":";
-      let s = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+      let s =
+        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
 
       return Y + M + D + h + m + s;
     }
@@ -106,6 +108,13 @@ export default {
   width: 100%;
 }
 
+.go_home {
+  color: #7a0002;
+  font-size: 16px;
+  float: left;
+  margin-left: 8px;
+  font-weight: bold;
+}
 .attention {
   padding: 10px;
   float: left;
