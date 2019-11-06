@@ -35,18 +35,21 @@ export default {
   },
   created() {
     this.ipaList = appData.data;
-    this.requestApi(this.currentIndex);
+     let params = {
+        page: this.currentIndex
+      };
+    this.requestApi(params);
   },
   methods: {
-    requestApi(index) {
+    requestApi(params) {
       let self = this;
-      API.getIpaInfo()
+      API.getIpaInfo(params)
         .then(function(response) {
           self.isLoading = false;
           if (response.data == null) {
             return;
           }
-          if (index == 0) {
+          if (params.page == 0) {
             self.ipaList = response.data;
           } else {
             self.ipaList = self.ipaList.concat(response.data);
