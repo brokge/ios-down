@@ -15,6 +15,11 @@ export default new Router({
       path: '/ios/download',
       name: 'iosDownload',
       component: () => import('./views/IOSDownloadPage.vue')
+    },
+    {
+      path:'/ios/download/sub',
+      name:'iosDownloadSub',
+      component:() => import('./views/IOSDownloadSubPage.vue')
     }
   ]
 })
