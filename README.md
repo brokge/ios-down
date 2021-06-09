@@ -2,7 +2,7 @@
 ## GitEmoj
 [Git 提交添加 Emoj ](https://www.webfx.com/tools/emoji-cheat-sheet/)
 ## cnpm 安装
-
+## test
 ```
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 ```
